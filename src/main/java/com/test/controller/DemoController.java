@@ -44,4 +44,11 @@ public class DemoController {
         return "hello";
     }
 
+    @ApiOperation("测试")
+    @GetMapping("/person4")
+    public String toPerson(){
+        System.out.println("ssssssss");
+        return "hello";
+    }
+
 }
