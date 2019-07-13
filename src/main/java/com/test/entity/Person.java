@@ -4,8 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @Data
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotEmpty;
 @ApiModel
 public class Person {
 
-    @NotEmpty
+    @NotBlank(message = "姓名不能为空")
     @ApiModelProperty("姓名")
     private String name;
     //Integer类型的数据 给个默认值 否则会报NumberFormatException: For input string: ""异常

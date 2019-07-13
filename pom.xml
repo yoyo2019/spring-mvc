@@ -63,12 +63,6 @@
       <version>${spring.version}</version>
     </dependency>
 
-    <!-- 注解参数校验 @Valid -->
-    <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <version>2.0.1.Final</version>
-    </dependency>
     <!--单元测试依赖 -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -97,6 +91,33 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.9.8</version>
+    </dependency>
+    <!-- 入参和Bean参数校验 -->
+    <!-- 不引入该依赖，校验不会生效 另外当前只有Bean中的校验才生效
+          为了Controller中的基本类型入参也生效 需要配置
+
+          @ControllerAdvice
+          public class FullControllerAdvice {
+
+              @Bean
+              public MethodValidationPostProcessor methodValidationPostProcessor() {
+                  return new MethodValidationPostProcessor();
+              }
+
+              @ExceptionHandler
+              public ModelAndView exceptionHandler(Exception ex){
+                  ex.printStackTrace();
+                  ModelAndView mv = new ModelAndView("error");
+                  mv.addObject("exception", ex);
+                  System.out.println("in FullControllerAdvice");
+                  return mv;
+              }
+          }
+     -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.4.1.Final</version>
     </dependency>
 
     <!--拦截器和Request、Response会用到 -->
