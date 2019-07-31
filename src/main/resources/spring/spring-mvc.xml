@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -10,6 +11,8 @@
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
@@ -17,6 +20,9 @@
     <context:component-scan base-package="com.test.*" />
     <!-- 注册HandlerMapper、HandlerAdapter两个映射类 -->
     <mvc:annotation-driven />
+    <!-- 激活自动代理功能 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
     <!-- 启用webapp目录下静态资源访问支持(容器默认的DefaultServlet：servlet在找页面时，走的是dispatcherServlet路线。找不到的时候会报404，加上这个默认的servlet时候，servlet在找不到的时候会去找静态的内容) -->
     <mvc:default-servlet-handler />
     <!-- 处理访问跨域问题，配置参考: https://www.jianshu.com/p/9203e9b14465 -->

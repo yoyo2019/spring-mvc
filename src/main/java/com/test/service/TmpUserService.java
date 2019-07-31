@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface TmpUserService extends IService<TmpUser> {
 
+    void xx();
 }

@@ -25,14 +25,15 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 public class Generator {
 
     /** 需要生成的表 */
-    public static String[] tables = {"ad_delivery_record","ad_position","ad_put_info"};
+    public static String[] tables = {"user_test"};
     /** 剔除表前缀 */
     public static String removeTablePrefix = "";
     /** 剔除字段前缀 */
     public static String removeFieldPrefix = "";
 
     /** 数据库链接，默认Mysql  */
-    public static String jdbcUrl = "jdbc:mysql://192.168.5.130:3306/tax_caishui?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
+//    public static String jdbcUrl = "jdbc:mysql://192.168.5.130:3306/tax_caishui?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
+    public static String jdbcUrl = "jdbc:mysql://192.168.5.131:3306/test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
     public static String jdbcUser = "root";
     public static String jdbcPwd = "123456";
 
@@ -62,7 +63,7 @@ public class Generator {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
         // 指定生成那种文件 生成的文件所在路径会再上面指定的包名下
-        mpg.setCfg(getCfg(true,true,false,true,true,false));
+        mpg.setCfg(getCfg(true,true,false,false,false,false));
         // 数据源配置，此处数据库为mysql
         mpg.setDataSource(getDscfg(DbType.MYSQL,"com.mysql.jdbc.Driver"));
         // 全局配置

@@ -1,19 +1,20 @@
 package com.test.controller;
 
+import com.test.db.manager.DataSource;
 import com.test.entity.Person;
+import com.test.entity.UserTest;
+import com.test.mapper.UserTestMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Api(description = "Demo API接口")
@@ -21,6 +22,9 @@ import javax.validation.constraints.Size;
 @RequestMapping("/demo")
 @Validated
 public class DemoController {
+
+    @Resource
+    UserTestMapper userTestMapper;
 
     @ApiOperation("全局异常测试接口")
     @GetMapping("/index")
@@ -31,10 +35,16 @@ public class DemoController {
         return "hello";
     }
 
+    @DataSource("two")
     @ApiOperation("测试")
     @GetMapping("/person4")
     public String toPerson(){
         System.out.println("ssssssss");
+
+
+        List<UserTest> list = userTestMapper.selectList(null);
+        System.out.println(list.size());
+
         return "hello";
     }
 

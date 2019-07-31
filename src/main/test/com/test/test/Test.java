@@ -8,10 +8,14 @@ import cn.hutool.setting.dialect.Props;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.test.db.manager.DataSource;
+import com.test.db.manager.DataSourceHolder;
 import com.test.entity.TmpUser;
 import com.test.entity.User;
+import com.test.entity.UserTest;
 import com.test.mapper.TmpUserMapper;
 import com.test.mapper.UserMapper;
+import com.test.mapper.UserTestMapper;
 import com.test.service.TmpUserService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +82,8 @@ public class Test{
     private TmpUserMapper tmpUserMapper;
     @Autowired
     private TmpUserService tmpUserService;
+    @Autowired
+    UserTestMapper userTestMapper;
 
     @org.junit.Test
     public void testSelect() {
@@ -104,13 +110,51 @@ public class Test{
 
     }
 
+//    @org.junit.Test
+//    public void testTmpUser(){
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true){
+//                    Page<TmpUser> page = new Page(1,5);
+//                    IPage<TmpUser> userIPages = tmpUserMapper.queryList(page);
+//                    System.out.println("datasource 1: "+userIPages.getTotal());
+//                    try{Thread.sleep(5000);}catch (Exception e){}
+//                }
+//            }
+//        }).start();
+//
+//        try{Thread.sleep(5000);}catch (Exception e){}
+//
+//        //切换数据源
+//        DataSourceHolder.setDataSource("two");
+//        while (true){
+//            List<UserTest> list = userTestMapper.selectList(null);
+//            System.out.println("datasource 2: "+list.size());
+//            try{Thread.sleep(2000);}catch (Exception e){}
+//        }
+//
+//
+////        tmpUserMapper.selectList(null);
+////
+////        User tt = new User();
+////        tt.setName("bb");
+////        userMapper.insert(tt);
+////        System.out.println(tt.getId());
+//    }
+
     @org.junit.Test
     public void testTmpUser(){
-        TmpUser ts = new TmpUser();
 
-        Page<TmpUser> page = new Page(1,5);
-        IPage<TmpUser> userIPage = tmpUserMapper.selectPage(page,null);
-        System.out.println(userIPage.getTotal());
+        tmpUserMapper.queryList(new Page(1,5));
+        tmpUserService.xx();
+        IPage<TmpUser> userIPages = getTmpUserTestList();
+//        System.out.println("datasource 1: "+userIPages.getTotal());
+//
+//        try{Thread.sleep(5000);}catch (Exception e){}
+//
+//        List<UserTest> list = getUserTestList();
+//        System.out.println("datasource 2: "+list.size());
 
 //        tmpUserMapper.selectList(null);
 //
@@ -118,5 +162,17 @@ public class Test{
 //        tt.setName("bb");
 //        userMapper.insert(tt);
 //        System.out.println(tt.getId());
+    }
+
+    @DataSource("one")
+    public IPage<TmpUser> getTmpUserTestList(){
+        Page<TmpUser> page = new Page(1,5);
+        IPage<TmpUser> userIPages = tmpUserMapper.queryList(page);
+        return userIPages;
+    }
+
+    @DataSource("two")
+    public List<UserTest> getUserTestList(){
+        return userTestMapper.selectList(null);
     }
 }
